@@ -66,7 +66,11 @@ function getImages(reqUrl, cb) {
 function getUrls(text) {
   const ret = new Set();
   const add = function(url){
-    ret.add(url.trim().replace(/\.+$/, ''));
+    var u = url;
+    if (u.startsWith('//')) {
+      u = 'http:' + u;
+    }
+    ret.add(u.trim().replace(/\.+$/, ''));
   };
 
   const urls = text.match(urlRegex()) || [];
@@ -80,5 +84,8 @@ function getUrls(text) {
 }
 
 // var str = 'https://www.realmaeglerne.dk/Default.aspx?ID=10291&ProductID=20202168';
-var str = 'https://www.realmaeglerne.dk/bolig/klynevej-17-snogebaek';
+// var str = 'https://www.realmaeglerne.dk/bolig/klynevej-17-snogebaek';
+var str = 'http://www.lokalbolig.dk/?sag=35-002552&mgl=18035';
+var str = 'https://www.lokalbolig.dk/bolig/fritidshus/gilleleje/3250/skovaasen--5/35-002552/93547/billeder';
+var str = 'https://www.edc.dk/alle-boliger/hvals%C3%B8/4330/kj%C3%A6rg%C3%A5rds-v%C3%A6nge-55/?sagsnr=43302162';
 getImages(str);
