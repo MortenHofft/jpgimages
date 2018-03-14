@@ -3,6 +3,7 @@ const app = express();
 const url = require('url');
 const getUrls = require('get-urls');
 var fetchUrl = require("fetch").fetchUrl;
+const PORT = process.env.PORT || 5000;
 
 app.get('/', function(req, res){
   res.send('Hello World!')
@@ -19,8 +20,8 @@ app.get('/images', function(req, res){
   })
 });
 
-app.listen(80, function(){
-  console.log('Example app listening on port 3000!')
+app.listen(PORT, function(){
+  console.log('Example app listening on port ' + PORT)
 });
 
 function getImages(reqUrl, cb) {
