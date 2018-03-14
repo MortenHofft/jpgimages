@@ -33,9 +33,15 @@ app.listen(PORT, function(){
   console.log('Example app listening on port ' + PORT)
 });
 
+var fetchOptions = {
+  disableRedirects: false,
+  header: {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+  }
+};
 function getImages(reqUrl, cb) {
   var images = [];
-  fetchUrl(reqUrl, function(error, meta, body){
+  fetchUrl(reqUrl, fetchOptions, function(error, meta, body){
     var urls = getUrls(body.toString());
     urls.forEach(function(e){
       var srcUrl = url.parse(e);
