@@ -17,7 +17,7 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 app.get('/', function(req, res){
-  res.send('Hello World!')
+  res.send('version 0.1')
 });
 
 app.get('/images', function(req, res){
@@ -36,10 +36,10 @@ app.listen(PORT, function(){
 });
 
 var fetchOptions = {
-  disableRedirects: false,
-  header: {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
-  }
+  disableRedirects: false
+  // header: {
+  //   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+  // }
 };
 function getImages(reqUrl, cb) {
   var images = [];
@@ -78,3 +78,7 @@ function getUrls(text) {
   a = _.uniq(a);
   return a;
 }
+
+// var str = 'https://www.realmaeglerne.dk/Default.aspx?ID=10291&ProductID=20202168';
+var str = 'https://www.realmaeglerne.dk/bolig/klynevej-17-snogebaek';
+getImages(str);
