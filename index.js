@@ -43,7 +43,6 @@ var fetchOptions = {
 };
 function getImages(reqUrl, cb) {
   var images = [];
-  console.log(reqUrl);
   fetchUrl(reqUrl, fetchOptions, function(error, meta, body){
     var urls = getUrls(body.toString());
     urls.forEach(function(e){
@@ -58,6 +57,8 @@ function getImages(reqUrl, cb) {
     });
     if (cb) {
       cb(null, images);
+    } else {
+      console.log(images);
     }
   });
 }
@@ -73,5 +74,7 @@ function getUrls(text) {
     add(url);
   }
 
-  return _.uniq(ret);
+  var a = Array.from(ret);
+  a = _.uniq(a);
+  return a;
 }
