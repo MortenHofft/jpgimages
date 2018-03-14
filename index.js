@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 const url = require('url');
-const getUrls = require('get-urls');
+// const getUrls = require('get-urls');
 var fetchUrl = require("fetch").fetchUrl;
+const urlRegex = require('url-regex');
 const PORT = process.env.PORT || 5000;
+const _ = require('lodash');
 
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -41,6 +43,7 @@ var fetchOptions = {
 };
 function getImages(reqUrl, cb) {
   var images = [];
+  console.log(reqUrl);
   fetchUrl(reqUrl, fetchOptions, function(error, meta, body){
     var urls = getUrls(body.toString());
     urls.forEach(function(e){
@@ -57,4 +60,18 @@ function getImages(reqUrl, cb) {
       cb(null, images);
     }
   });
+}
+
+function getUrls(text) {
+  const ret = new Set();
+  const add = function(url){
+    ret.add(url.trim().replace(/\.+$/, ''));
+  };
+
+  const urls = text.match(urlRegex()) || [];
+  for (const url of urls) {
+    add(url);
+  }
+
+  return _.uniq(ret);
 }
